@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Регистрация | NeoCinema</title>
+  <link rel="stylesheet" href="register.css" />
+</head>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyCU2XGkZwG3ZiPEssp1bo4QX-xpsWtiV6A",
+  authDomain: "neocinema-c6c53.firebaseapp.com",
+  projectId: "neocinema-c6c53",
+  storageBucket: "neocinema-c6c53.firebasestorage.app",
+  messagingSenderId: "757092839012",
+  appId: "1:757092839012:web:2904b56d760eebdfd4b971",
+  measurementId: "G-229N59F99E"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+</script>
+<body>
+  <div class="register-container">
+    <h2>Создай аккаунт NeoCinema</h2>
+    <form class="register-form">
+      <input type="text" placeholder="Имя пользователя" required />
+      <input type="email" placeholder="Email" required />
+      <input type="password" placeholder="Пароль" required />
+      <input type="password" placeholder="Подтверждение пароля" required />
+      <button type="submit">Зарегистрироваться</button>
+      <p class="login-link">Уже есть аккаунт? <a href="login.html">Войти</a></p>
+    </form>
+  </div>
+<script>
+  document.querySelector('.register-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const email = e.target[1].value;
+    const password = e.target[2].value;
+    const confirm = e.target[3].value;
+
+    if (password !== confirm) {
+      alert("Пароли не совпадают!");
+      return;
+    }
+
+    auth.createUserWithEmailAndPassword(email, password)
+      .then(user => {
+        alert("Успешная регистрация!");
+        window.location.href = "account.html";
+      })
+      .catch(error => {
+        alert("Ошибка: " + error.message);
+      });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Авторизация | NeoCinema</title>
+  <link rel="stylesheet" href="login.css" />
+</head>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCU2XGkZwG3ZiPEssp1bo4QX-xpsWtiV6A",
+    authDomain: "neocinema-c6c53.firebaseapp.com",
+    projectId: "neocinema-c6c53",
+    storageBucket: "neocinema-c6c53.firebasestorage.app",
+    messagingSenderId: "757092839012",
+    appId: "1:757092839012:web:2904b56d760eebdfd4b971",
+    measurementId: "G-229N59F99E"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+</script>
+
+<body>
+  <div class="login-container">
+    <h2>Вход в NeoCinema</h2>
+    <form class="login-form">
+      <input type="email" placeholder="Email" required />
+      <input type="password" placeholder="Пароль" required />
+      <button type="submit">Войти</button>
+      <p class="signup-link">Нет аккаунта? <a href="register.html">Зарегистрироваться</a></p>
+    </form>
+  </div>
+
+  <script>
+    document.querySelector('.login-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const email = e.target[0].value;
+      const password = e.target[1].value;
+
+      auth.signInWithEmailAndPassword(email, password)
+        .then(user => {
+          // 🔥 ЭТО ГЛАВНОЕ — сохраняем статус входа
+          localStorage.setItem("neoUser", "true");
+
+          alert("Добро пожаловать!");
+          window.location.href = "account.html"; // Или profile.html — если у тебя так называется личный кабинет
+        })
+        .catch(error => {
+          alert("Ошибка входа: " + error.message);
+        });
+    });
+  </script>
+</body>
+</html>
+
